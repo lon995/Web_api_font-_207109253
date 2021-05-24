@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap 实例</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</script>
+</head>
+<style>
+  #contact-area {
+      padding: 110px 0 120px;
+  }
+
+  .contact-box {
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 50px 50px 35px;
+      background-color: #fff;
+      border-radius: 6px;
+  }
+
+  .contact-box input {
+      height: 50px;
+      border: 1px solid #f7f6f5;
+      font-size: 15px;
+      background-color: #f7f6f5;
+      font-weight: 500
+  }
+
+  .contact-box textarea {
+      border: 1px solid #f7f6f5;
+      padding-top: 10px;
+      background-color: #f7f6f5;
+      font-size: 15px;
+      font-weight: 500
+  }
+
+  .contact-box button {
+      background-color: #325eff;
+      border: 0;
+      color: #fff;
+      padding: 10px 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: 0;
+      font-weight: 500;
+      font-size: 15px
+  }
+
+  .contact-box button:hover {
+      background-color: #0f39cf;
+  }
+</style>
+<body>
+
+<!------------------------------------------------------------------------------>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index">Index</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active">
+        <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Price Branc <b class="caret"></b>
+                </a>
+                 <ul class="dropdown-menu">
+                    <li><a href="index_Rice">Rice</a></li>
+                    <li><a href="index_beverage">Beverage</a></li>
+                    <li><a href="index_Oil">Oil</a></li>
+                    <li><a href="index_Tissue">Tissue</a></li>
+                    <li><a href="index_Egg">Egg&Milk</a></li>                                   
+                </ul>
+            </li>
+
+            <li><a href="getPlotCSV">Price Report</a></li>
+        <li><a href="index_Myf">My favorite</a></li>
+        <li><a href="userChangePW">Change password</a></li>
+        <li><a href="user_logout">LogOut</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--------------------------------------------------------------------------------->
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            
+            // Draw the chart and set the chart values
+            function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Shop','Wellcome','Parknshop'],
+                        {% for item in result %}
+                        ['{{item[0]}}',{{item[1]}},{{item[2]}}],
+                        {% endfor %}
+                        ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {'title':'{{name}}', 'width':1000, 'height':400,'min':0};
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.LineChart(document.getElementById('myCanvas'));
+            chart.draw(data, options);
+            }
+</script>
+<div id="myCanvas" width="400" height="400"></div>
+<!--------------------------------------------------------------------------------->
+</body>
+</html>
